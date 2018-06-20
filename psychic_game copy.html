@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+
+</head>
+
+<body>
+
+  
+  <h1> The Psychic Game</h1>
+
+  <p> Guess what letter I'm thinking of</p>
+  <div id="game"></div>
+  
+  <script type="text/javascript">
+
+
+
+// Creates variables.
+
+    var ck = makeid();
+    win = 0;
+    losses = 0
+    guesses_left = 10;
+    guesses_sofar = "";
+    var allowedChars = "abcdefghijklmnopqrstuvwxyz";
+
+
+    document.onkeyup = function (event) {
+
+      var uk = event.key;
+      
+      if (ck === uk) {
+        win++;
+        guesses_left = 9;
+        guesses_sofar = "";
+        ck = makeid();
+      }
+      else {
+        if (allowedChars.includes(uk)) {
+          console.log(allowedChars.includes(uk));
+          if ((ck != uk) && guesses_left > 0) {
+            guesses_left--;
+            if (guesses_sofar != "")
+              guesses_sofar = guesses_sofar + ", " + uk;
+            else
+              guesses_sofar = uk;
+          }
+          else {
+            losses++;
+            guesses_left = 10;
+            guesses_sofar = "";
+            ck = makeid();
+          }
+        }
+      }
+
+      var html =
+        "<p>wins: " + win + "</p>" +
+        "<p>losses: " + losses + "</p>" +
+        "<p>Guesses Left " + guesses_left + "</p><p> Your Guesses so far " + guesses_sofar + "</p>";
+      console.log(ck);
+      document.getElementById("game").innerHTML = html;
+    }
+  
+    function makeid() {
+      var text = "";
+      var possible = "abcdefghijklmnopqrstuvwxyz";
+
+      for (var i = 0; i < 1; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    }
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>
